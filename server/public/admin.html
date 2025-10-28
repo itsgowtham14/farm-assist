@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>FarmAssist Admin - Minimal</title>
+  </head>
+  <body>
+    <h1>FarmAssist Admin - Minimal</h1>
+    <section>
+      <h2>Seeded States</h2>
+      <ul id="states"></ul>
+    </section>
+
+    <section>
+      <h2>Seeded Crops</h2>
+      <ul id="crops"></ul>
+    </section>
+
+    <script>
+      async function load() {
+        const base = 'http://localhost:5000';
+        const s = await fetch(base + '/api/metadata/states');
+        const states = await s.json();
+        document.getElementById('states').innerHTML = states.map(x => `<li>${x.name} (${x.code}) - ${x._id}</li>`).join('');
+
+        const c = await fetch(base + '/api/metadata/crops');
+        const crops = await c.json();
+        document.getElementById('crops').innerHTML = crops.map(x => `<li>${x.name} - seasons: ${x.seasons.join(', ')}</li>`).join('');
+      }
+      load();
+    </script>
+  </body>
+</html>

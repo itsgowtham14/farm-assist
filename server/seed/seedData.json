@@ -1,0 +1,21 @@
+{
+  "states": [
+    { "name": "Andhra Pradesh", "code": "AP" },
+    { "name": "Uttar Pradesh", "code": "UP" }
+  ],
+  "crops": [
+    { "name": "Rice", "seasons": ["Kharif"], "allowedStateNames": ["Andhra Pradesh", "Uttar Pradesh"], "description": "Rice crop common in Kharif" },
+    { "name": "Maize", "seasons": ["Kharif", "Zaid"], "allowedStateNames": ["Andhra Pradesh"], "description": "Maize" },
+    { "name": "Wheat", "seasons": ["Rabi"], "allowedStateNames": ["Uttar Pradesh"], "description": "Wheat" }
+  ],
+  "products": [
+    { "name": "Urea 45kg", "type": "fertilizer", "activeIngredients": "Nitrogen (46%)", "approval": "FCO", "priceMRP": 266, "vendorInfo": [{ "name": "Local Co-op", "location": "Anantapur", "contact": "0123456789" }] },
+    { "name": "Chlorpyrifos 20% EC", "type": "pesticide", "activeIngredients": "Chlorpyrifos", "approval": "CIB", "priceMRP": 450, "vendorInfo": [{ "name": "AgroStore", "location": "Lucknow", "contact": "0987654321" }] }
+  ],
+  "timelineTasks": [
+    { "cropName": "Rice", "season": "Kharif", "week": 1, "task": "Land Preparation", "description": "Prepare the land, remove weeds." },
+    { "cropName": "Rice", "season": "Kharif", "week": 2, "task": "Sowing", "description": "Sow seeds." },
+    { "cropName": "Wheat", "season": "Rabi", "week": 1, "task": "Land Preparation", "description": "Plough and level the field." },
+    { "cropName": "Wheat", "season": "Rabi", "week": 2, "task": "Sowing", "description": "Sow seeds at recommended depth." }
+  ]
+}
