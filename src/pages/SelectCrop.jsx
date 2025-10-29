@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_URL } from '../config';
 
 const SelectCrop = ({ onCropSelect, navigateTo, onSessionExpired }) => {
   const [formData, setFormData] = useState({
@@ -19,7 +20,7 @@ const SelectCrop = ({ onCropSelect, navigateTo, onSessionExpired }) => {
 
   const fetchStates = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/metadata/states');
+      const response = await fetch(`${API_URL}/metadata/states`);
       if (!response.ok) throw new Error('Failed to fetch states');
       const data = await response.json();
       setStates(data);
@@ -60,7 +61,7 @@ const SelectCrop = ({ onCropSelect, navigateTo, onSessionExpired }) => {
     
     try {
       setLoading(true);
-      const response = await fetch(`http://localhost:5000/api/metadata/crops?state=${encodeURIComponent(state)}&season=${encodeURIComponent(season)}`);
+      const response = await fetch(`${API_URL}/metadata/crops?state=${encodeURIComponent(state)}&season=${encodeURIComponent(season)}`);
       
       if (response.status === 404) {
         throw new Error('No crops found for selected state and season');
@@ -115,7 +116,7 @@ const SelectCrop = ({ onCropSelect, navigateTo, onSessionExpired }) => {
 
       console.log('Submitting selection:', dataToSubmit);
 
-      const response = await fetch('http://localhost:5000/api/selections', {
+      const response = await fetch(`${API_URL}/selections`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

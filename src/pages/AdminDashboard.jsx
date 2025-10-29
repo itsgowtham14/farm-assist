@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_URL } from '../config';
 
 const AdminDashboard = ({ onLogout }) => {
   const [activeSection, setActiveSection] = useState('states');
@@ -122,7 +123,7 @@ const AdminDashboard = ({ onLogout }) => {
   const fetchIssueTemplates = async () => {
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:5000/api/issue-templates');
+      const res = await fetch(`${API_URL}/issue-templates`);
       if (!res.ok) throw new Error('Failed to fetch issue templates');
       const data = await res.json();
       setIssueTemplates(data);
@@ -140,8 +141,8 @@ const AdminDashboard = ({ onLogout }) => {
     try {
       const method = editingTemplateId ? 'PUT' : 'POST';
       const url = editingTemplateId
-        ? `http://localhost:5000/api/issue-templates/${editingTemplateId}`
-        : 'http://localhost:5000/api/issue-templates';
+        ? `${API_URL}/issue-templates/${editingTemplateId}`
+        : `${API_URL}/issue-templates`;
       const res = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json' },
@@ -171,7 +172,7 @@ const AdminDashboard = ({ onLogout }) => {
   const handleDeleteTemplate = async (id) => {
     if (!window.confirm('Delete this issue template?')) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/issue-templates/${id}`, { method: 'DELETE' });
+      const res = await fetch(`${API_URL}/issue-templates/${id}`, { method: 'DELETE' });
       if (!res.ok) throw new Error('Failed to delete issue template');
       fetchIssueTemplates();
     } catch (err) {
@@ -189,7 +190,7 @@ const AdminDashboard = ({ onLogout }) => {
 
       const fetcher = async (type) => {
         try {
-          const res = await fetch(`http://localhost:5000/api/admin/${type}`, {
+          const res = await fetch(`${API_URL}/admin/${type}`, {
             headers: { 'Authorization': `Bearer ${token}` }
           });
           
@@ -235,7 +236,7 @@ const AdminDashboard = ({ onLogout }) => {
         throw new Error('Authentication token not found. Please login again.');
       }
 
-      const response = await fetch(`http://localhost:5000/api/admin/${activeSection}`, {
+      const response = await fetch(`${API_URL}/admin/${activeSection}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -298,7 +299,7 @@ const AdminDashboard = ({ onLogout }) => {
 
       console.log('Sending data to server:', dataToSubmit);
       
-      const response = await fetch(`http://localhost:5000/api/admin/${activeSection}`, {
+      const response = await fetch(`${API_URL}/admin/${activeSection}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -340,7 +341,7 @@ const AdminDashboard = ({ onLogout }) => {
   const handleDelete = async (id) => {
     if (!window.confirm('Are you sure you want to delete this item?')) return;
     try {
-      const response = await fetch(`http://localhost:5000/api/admin/${activeSection}/${id}`, {
+      const response = await fetch(`${API_URL}/admin/${activeSection}/${id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('fa_token')}`

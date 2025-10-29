@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { API_URL } from '../config';
 
 const KnowledgeBase = ({ navigateTo }) => {
   const [products, setProducts] = useState([]);
@@ -8,7 +9,7 @@ const KnowledgeBase = ({ navigateTo }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/products');
+        const res = await fetch(`${API_URL}/products`);
         if (!res.ok) throw new Error('Failed to fetch products');
         const data = await res.json();
         setProducts(data);

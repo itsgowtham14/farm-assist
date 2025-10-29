@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_URL } from './config';
 import Header from './components/Header';
 import Navigation from './components/Navigation';
 import Home from './pages/Home';
@@ -76,7 +77,7 @@ function App() {
     } else if (userToken) {
       setIsLoggedIn(true);
       // Check if user has selections to determine page
-      fetch('http://localhost:5000/api/selections', {
+      fetch(`${API_URL}/selections`, {
         headers: {
           'Authorization': `Bearer ${userToken}`
         }

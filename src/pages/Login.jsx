@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_URL } from '../config';
 
 const Login = ({ onLogin, navigateTo }) => {
   const [isAdminLogin, setIsAdminLogin] = useState(false);
@@ -46,7 +47,7 @@ const Login = ({ onLogin, navigateTo }) => {
     e.preventDefault();
     if (validateForm()) {
       setServerError('');
-      const base = 'http://localhost:5000/api/auth';
+      const base = `${API_URL}/auth`;
       if (mode === 'login') {
         fetch(base + '/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password }) })
           .then(r => r.json())
@@ -56,7 +57,7 @@ const Login = ({ onLogin, navigateTo }) => {
             if (data.token) {
               localStorage.setItem('fa_token', data.token);
               // Check if user has any selections
-              fetch('http://localhost:5000/api/selections', {
+              fetch(`${API_URL}/selections`, {
                 headers: {
                   'Authorization': `Bearer ${data.token}`
                 }

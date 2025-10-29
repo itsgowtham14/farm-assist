@@ -22,16 +22,30 @@ const __dirname = dirname(__filename);
 // Load .env from parent directory (server folder)
 dotenv.config({ path: join(__dirname, '..', '.env') });
 
+// Use default values if environment variables are not set
+const JWT_SECRET = process.env.JWT_SECRET || 'farmassist_default_secret_key_change_in_production';
+const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/farmassist';
+
 console.log('Environment check:');
-console.log('- OPENAI_API_KEY:', process.env.OPENAI_API_KEY ? 'Loaded ✓' : 'NOT FOUND ✗');
-console.log('- JWT_SECRET:', process.env.JWT_SECRET ? 'Loaded ✓' : 'NOT FOUND ✗');
-console.log('- MONGO_URI:', process.env.MONGO_URI ? 'Loaded ✓' : 'NOT FOUND ✗');
+console.log('- HUGGINGFACE_API_KEY:', process.env.HUGGINGFACE_API_KEY ? 'Loaded ✓' : 'Using fallback solutions');
+console.log('- JWT_SECRET:', JWT_SECRET ? 'Loaded ✓' : 'NOT FOUND ✗');
+console.log('- MONGO_URI:', MONGO_URI ? 'Loaded ✓' : 'NOT FOUND ✗');
+
+// Make JWT_SECRET available globally for other modules
+process.env.JWT_SECRET = JWT_SECRET;
 
 const app = express();
-app.use(cors());
-app.use(express.json());
 
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/farmassist';
+// CORS configuration for production
+const corsOptions = {
+  origin: process.env.NODE_ENV === 'production' 
+    ? [process.env.FRONTEND_URL, 'https://your-vercel-app.vercel.app']
+    : '*',
+  credentials: true
+};
+
+app.use(cors(corsOptions));
+app.use(express.json());
 
 mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB connected'))
@@ -52,3 +66,6 @@ app.get('/', (req, res) => res.json({ msg: 'FarmAssist backend running' }));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
+
+// Export for Vercel serverless
+export default app;

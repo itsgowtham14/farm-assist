@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_URL } from '../config';
 
 const Dashboard = ({ navigateTo, onSessionExpired }) => {
   const [selections, setSelections] = useState([]);
@@ -13,7 +14,7 @@ const Dashboard = ({ navigateTo, onSessionExpired }) => {
     try {
       const token = localStorage.getItem('fa_token');
 
-      const response = await fetch('http://localhost:5000/api/selections', {
+      const response = await fetch(`${API_URL}/selections`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }

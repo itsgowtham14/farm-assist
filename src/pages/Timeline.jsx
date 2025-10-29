@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_URL } from '../config';
 
 const Timeline = ({ cropData, navigateTo }) => {
   let actualCropData = cropData;
@@ -81,7 +82,7 @@ const Timeline = ({ cropData, navigateTo }) => {
     setLoadingAiSolution(prev => ({ ...prev, [issueKey]: true }));
 
     try {
-      const response = await fetch('http://localhost:5000/api/ai-solution', {
+      const response = await fetch(`${API_URL}/ai-solution`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -137,7 +138,7 @@ const Timeline = ({ cropData, navigateTo }) => {
   // Fetch issue templates from backend
   const fetchIssueTemplates = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/issue-templates');
+      const res = await fetch(`${API_URL}/issue-templates`);
       if (!res.ok) throw new Error('Failed to fetch issue templates');
       const data = await res.json();
       console.log('Fetched issue templates:', data);
@@ -156,7 +157,7 @@ const Timeline = ({ cropData, navigateTo }) => {
 
   const fetchNotes = async () => {
     try {
-      const res = await fetch(`http://localhost:5000/api/notes/${actualCropData._id}`);
+      const res = await fetch(`${API_URL}/notes/${actualCropData._id}`);
       if (!res.ok) throw new Error('Failed to fetch notes');
       const data = await res.json();
       const notesByWeek = {};
@@ -167,7 +168,7 @@ const Timeline = ({ cropData, navigateTo }) => {
 
   const fetchIssues = async () => {
     try {
-      const res = await fetch(`http://localhost:5000/api/issues?selection=${actualCropData._id}`);
+      const res = await fetch(`${API_URL}/issues?selection=${actualCropData._id}`);
       if (!res.ok) {
         console.warn('No issues or fetch failed');
         return;
@@ -187,7 +188,7 @@ const Timeline = ({ cropData, navigateTo }) => {
       const params = new URLSearchParams();
       if (actualCropData.season) params.append('season', actualCropData.season);
       if (actualCropData.sowingDate) params.append('sowingDate', actualCropData.sowingDate);
-      const response = await fetch(`http://localhost:5000/api/timeline/${actualCropData.crop}?${params.toString()}`);
+      const response = await fetch(`${API_URL}/timeline/${actualCropData.crop}?${params.toString()}`);
       if (!response.ok) throw new Error('Failed to fetch timeline');
       const data = await response.json();
       setTimeline(data);
@@ -202,7 +203,7 @@ const Timeline = ({ cropData, navigateTo }) => {
     const note = prompt(`Enter notes for Week ${week}:`, notes[week] || '');
     if (note !== null) {
       try {
-        const res = await fetch('http://localhost:5000/api/notes', {
+        const res = await fetch(`${API_URL}/notes`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ selection: actualCropData._id, week, note })
@@ -238,7 +239,7 @@ const Timeline = ({ cropData, navigateTo }) => {
     };
 
     try {
-      const response = await fetch('http://localhost:5000/api/issues', {
+      const response = await fetch(`${API_URL}/issues`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(issueData)
