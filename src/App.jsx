@@ -155,8 +155,8 @@ function App() {
         onLogout={handleLogout}
       />
       
-      <main style={{ flex: 1, width: '1475px', display: 'flex', justifyContent: 'center', padding: '2rem' }}>
-        <div style={{ width: '1475px', maxWidth: '1200px' }}>
+      <main style={{ flex: 1, width: '100%', display: 'flex', justifyContent: 'center', padding: '2rem' }}>
+        <div style={{ width: '100%', maxWidth: '1200px', margin: '0 auto' }}>
           {currentPage === 'home' && <Home navigateTo={navigateTo} />}
           {currentPage === 'login' && <Login onLogin={handleLogin} navigateTo={navigateTo} />}
           {currentPage === 'select-crop' && <SelectCrop onCropSelect={handleCropSelect} navigateTo={navigateTo} onSessionExpired={handleLogout} />}
