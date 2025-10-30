@@ -20,7 +20,7 @@ const Home = ({ navigateTo }) => {
 
           <div className="service-card">
             <h3>Unexpected Situations</h3>
-            <p>Heavy rainfall? Pest attack? Our system adapts the plan and gives next steps.</p>
+            <p>Heavy rainfall? Pest attack? Our system adapts the plan and gives next steps — and provides AI-powered, location-specific recommendations to help you respond quickly and effectively.</p>
             <a href="#login" onClick={(e) => { e.preventDefault(); navigateTo('login'); }} className="card-link">Report Issues</a>
           </div>
 
@@ -36,11 +36,7 @@ const Home = ({ navigateTo }) => {
             <a href="#login" onClick={(e) => { e.preventDefault(); navigateTo('login'); }} className="card-link">Go to Dashboard</a>
           </div>
 
-          <div className="service-card">
-            <h3>AI-Tailored Solutions</h3>
-            <p>Get personalized, location-specific AI recommendations for your crop issues.</p>
-            <a href="#login" onClick={(e) => { e.preventDefault(); navigateTo('login'); }} className="card-link">Get AI Solutions</a>
-          </div>
+          {/* AI-Tailored Solutions card removed — content merged into Unexpected Situations */}
         </div>
       </section>
     </div>
