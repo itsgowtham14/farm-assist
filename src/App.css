@@ -1,7 +1,9 @@
 /* style.css */
 
 /* Ensure all content uses full width */
-
+*{
+  box-sizing: border-box;
+}
 form {
   width: 100%;
 }
