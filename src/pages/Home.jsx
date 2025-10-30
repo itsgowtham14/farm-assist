@@ -1,13 +1,9 @@
 import React from 'react';
 
 const Home = ({ navigateTo }) => {
-  // Calculate left margin to center content
-  // Container width: 1475px, Content max-width: 1200px
-  // Left margin = (1475 - 1200) / 2 = 137.5px
-  const centerMargin = '137.5px';
-
+  
   return (
-    <div style={{ marginLeft: centerMargin }}>
+    <div >
       <section className="banner-section">
         <img src="index.jpeg" alt="Farming scene" className="index-banner" />
       </section>
