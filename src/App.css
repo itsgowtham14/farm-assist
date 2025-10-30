@@ -39,13 +39,13 @@ header {
   background-color: #689f38;
   width: 100%;
   color: white;
-  padding: 1rem;
+  /* padding: 1rem; */
   text-align: center;
 }
 
 nav {
   background-color: #e6ee9c;
-  padding: 0.5rem;
+  /* padding: 0.5rem; */
   text-align: center;
 }
 
