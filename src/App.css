@@ -24,12 +24,11 @@ nav {
   width: 100%;
 }
 
+/* Page body - keep it a normal block so header/footer can span full viewport */
 body {
   margin: 0;
   padding: 0;
   width: 100%;
-  align-items: center;
-  display: flex;
   font-family: 'Segoe UI', sans-serif;
   background-color: #f9fbe7;
   color: #333;
@@ -287,6 +286,11 @@ footer {
   border-color: #4a8f3c;
 }
 
+
+/* Ensure root element spans full width */
+#root {
+  width: 100%;
+}
 
 body {
   font-family: Arial, sans-serif;
