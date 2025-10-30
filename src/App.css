@@ -19,13 +19,13 @@ table {
 nav {
   display: flex;
   justify-content: center;
-  width: 108.8%;
+  width: 100%;
 }
 
 body {
   margin: 0;
   padding: 0;
-  width: 1700px;
+  width: 100%;
   align-items: center;
   display: flex;
   font-family: 'Segoe UI', sans-serif;
@@ -35,7 +35,7 @@ body {
 
 header {
   background-color: #689f38;
-  width: 107.5%;
+  width: 100%;
   color: white;
   padding: 1rem;
   text-align: center;
@@ -100,7 +100,7 @@ input, select, textarea {
 footer {
   background-color: #795548;
   color: white;
-  width:107%;
+  width:100%;
   text-align: center;
   padding: 1rem;
   margin-top: 10rem;
