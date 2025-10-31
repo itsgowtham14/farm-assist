@@ -28,16 +28,28 @@ Please provide a specific, actionable solution considering the local conditions 
 
 Keep the response concise (3-4 sentences) and practical for farmers in ${farmLocation}.`;
 
-    // Call AI API - Using free Hugging Face Inference API
-    const apiKey = process.env.OPENAI_API_KEY;
-    console.log('AI Solution - API Key check:', apiKey ? 'Key found (length: ' + apiKey.length + ')' : 'KEY NOT FOUND');
-    
-    // Use Hugging Face's free inference API instead of OpenAI
+  // Call AI API - Using Hugging Face Inference API (requires an API key)
+  // Use only HUGGINGFACE_API_KEY. Do not fallback to OpenAI keys.
+  const hfApiKey = process.env.HUGGINGFACE_API_KEY;
+  console.log('AI Solution - Hugging Face API key check:', hfApiKey ? 'Key found (length: ' + hfApiKey.length + ')' : 'KEY NOT FOUND');
+
+    // If there's no API key, avoid making an unauthenticated request and return the rule-based fallback.
+    if (!hfApiKey) {
+      console.warn('No Hugging Face API key configured. Returning rule-based fallback solution. Set HUGGINGFACE_API_KEY in your environment to enable HF model calls.');
+      const simpleSolution = generateSimpleSolution(issueType, cropName, season, farmLocation);
+      if (issueId) {
+        await Issue.findByIdAndUpdate(issueId, { aiSolution: simpleSolution });
+      }
+      return res.json({ aiSolution: simpleSolution, notice: 'No Hugging Face API key configured. Returned fallback solution.' });
+    }
+
+    // Use Hugging Face's inference API; include Authorization header
     try {
       const hfResponse = await fetch('https://api-inference.huggingface.co/models/meta-llama/Llama-3.2-3B-Instruct', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${hfApiKey}`
         },
         body: JSON.stringify({
           inputs: prompt,
