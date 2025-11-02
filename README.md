@@ -232,11 +232,11 @@ For help, feedback, or suggestions:
 ## 👥 Authors
 
 **Developed by:**  
-[Your Name]  
-Roll Number: 231FA04094  
-Vignan University
+Gowtham Challapalli (231FA04094)
+Mary Satvika (231FA04434)
+Venkateswari (231FA04837)
+Jaswika (231FA04A73)
 
-**Project Guide:** [Professor Name]
 
 ---
 
